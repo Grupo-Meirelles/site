@@ -1,0 +1,9 @@
+{
+  "_comentario": "Modelo — este arquivo é ignorado (nomes que começam com _). Copie-o para um novo arquivo, ex.: 04-fulano.json, e preencha os campos abaixo com uma avaliação real do Google.",
+  "autor": "Nome Sobrenome",
+  "nota": 5,
+  "texto": "Cole aqui o texto da avaliação, exatamente como está no Google.",
+  "data": "2026-08-14T14:22:00-03:00",
+  "foto": "",
+  "vinculo": "Cargo — Órgão (opcional; deixe vazio se não souber)"
+}

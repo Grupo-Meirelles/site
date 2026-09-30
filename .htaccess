@@ -1,0 +1,5 @@
+# Não expor configuração nem código de apoio (Apache 2.4)
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+RedirectMatch 404 ^/(inc|db)/

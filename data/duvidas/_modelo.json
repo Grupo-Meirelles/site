@@ -1,0 +1,5 @@
+{
+  "_comentario": "Modelo — este arquivo é ignorado (nomes que começam com _). Copie-o para um novo arquivo, ex.: 07-minha-pergunta.json. A ordem na página segue o nome do arquivo; para remover uma pergunta, apague o arquivo dela.",
+  "pergunta": "Escreva a pergunta aqui?",
+  "resposta": "Escreva a resposta aqui. Texto simples, sem HTML; quebras de linha são mantidas."
+}
