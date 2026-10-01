@@ -290,7 +290,7 @@ window.addEventListener('scroll', () => {
             mostrarEstado(erro.resposta.erro, 'erro');
             return;
           }
-          mostrarEstado('Não conseguimos enviar agora. Chame no WhatsApp (61) 3038-3302.', 'erro');
+          mostrarEstado('Não conseguimos enviar agora. Chame no WhatsApp (61) 98256-4974.', 'erro');
         })
         .finally(function () {
           botao.disabled = false;
