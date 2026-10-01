@@ -34,7 +34,7 @@ declare(strict_types=1);
         <li><a href="https://www.instagram.com/ogrupomeirelles/" target="_blank" rel="noopener" aria-label="Instagram do Grupo Meirelles">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg>
         </a></li>
-        <li><a href="https://www.linkedin.com/company/grupomeirelles/" target="_blank" rel="noopener" aria-label="LinkedIn do Grupo Meirelles">
+        <li><a href="https://www.linkedin.com/company/grupo-meirelles/" target="_blank" rel="noopener" aria-label="LinkedIn do Grupo Meirelles">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.05c.53-1 1.84-2.05 3.78-2.05 4.04 0 4.79 2.66 4.79 6.12v5.43h-4v-4.82c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.9h-4z"/></svg>
         </a></li>
         <li><a href="https://www.facebook.com/ogrupomeirelles" target="_blank" rel="noopener" aria-label="Facebook do Grupo Meirelles">
