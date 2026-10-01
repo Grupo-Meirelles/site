@@ -547,6 +547,13 @@ a:hover { color: var(--acento-600); text-decoration: underline; }
 .rodape a { color: var(--texto-3); }
 .rodape a:hover { color: var(--acento); }
 .rodape__logo { height: 30px; width: auto; margin-bottom: 12px; }
+.rodape__redes { display: flex; gap: 8px; margin-bottom: 14px; }
+.rodape__redes a {
+  display: grid; place-content: center; width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--linha); color: var(--texto-2);
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+.rodape__redes a:hover { background: var(--acento); border-color: var(--acento); color: #fff; text-decoration: none; }
 .rodape__legal { max-width: var(--largura-conteudo); margin: 20px auto 0; padding-top: 16px; border-top: 1px solid var(--linha); font-size: 11px; }
 
 @media (min-width: 900px) { .rodape__grade { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; } }
