@@ -202,7 +202,7 @@ require __DIR__ . '/inc/topo.php';
     <h2>Gente de verdade</h2>
     <p>O Grupo Meirelles nasceu do vislumbre e da coragem de uma mulher que deixou sua cidade natal para construir uma nova história na capital do país.</p>
 
-    <p>O que começou como um sonho e uma visão de futuro se transformou em uma empresa que hoje reúne mais de 40 pessoas, mantém um escritório aberto de segunda a sexta e já atendeu mais de 13 mil clientes.</p>
+    <p>O que começou como um sonho e uma visão de futuro se transformou em uma empresa que hoje reúne mais de 40 pessoas, mantém um escritório aberto de segunda a sexta e já atendeu mais de 32 mil clientes em todo Território Nacional.</p>
 
     <p>Nosso trabalho é simples: facilitar a transição dos seus contratos de consignado de outros bancos, sempre buscando as melhores ofertas entre nossos bancos parceiros e uma condição que faça sentido para o seu contracheque.</p>
 
