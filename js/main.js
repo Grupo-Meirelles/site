@@ -483,7 +483,65 @@ window.addEventListener('scroll', () => {
     }, { threshold: 0 }).observe(form);
   }
 
+  /* ------------------------------------------- consentimento (LGPD) ---- */
+  // O padrão (tudo opcional negado) e a leitura da escolha salva ficam num
+  // script no <head> (inc/topo.php), para valerem antes de qualquer tag do
+  // Google. Aqui: mostrar o aviso enquanto não houver escolha, a janela de
+  // configuração, salvar no cookie e avisar o Consent Mode e o dataLayer.
+
+  var COOKIE_CONSENTIMENTO = 'gm_consentimento';
+  var VERSAO_CONSENTIMENTO = 1;      // subir quando as categorias mudarem: pede a escolha de novo
+  var VALIDADE_DIAS = 365;
+
+  var avisoCookies = document.getElementById('avisoCookies');
+  var configCookies = document.getElementById('cookiesConfig');
+
+  function salvarConsentimento(medicao, marketing) {
+    var escolha = { v: VERSAO_CONSENTIMENTO, medicao: !!medicao, marketing: !!marketing, em: new Date().toISOString() };
+    document.cookie = COOKIE_CONSENTIMENTO + '=' + encodeURIComponent(JSON.stringify(escolha)) +
+      '; Max-Age=' + VALIDADE_DIAS * 86400 + '; Path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : '');
+    window.gmConsentimento = escolha;
+
+    // Consent Mode + carrega as tags liberadas (função definida no <head>, inc/topo.php).
+    if (typeof window.gmAplicarConsentimento === 'function') window.gmAplicarConsentimento(escolha);
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'consentimento_atualizado', consentimento_medicao: escolha.medicao, consentimento_marketing: escolha.marketing });
+
+    if (avisoCookies) avisoCookies.hidden = true;
+    if (configCookies && configCookies.open) configCookies.close();
+  }
+
+  function abrirConfigCookies() {
+    if (!configCookies) return;
+    var atual = window.gmConsentimento || {};
+    configCookies.querySelector('[name="medicao"]').checked = !!atual.medicao;
+    configCookies.querySelector('[name="marketing"]').checked = !!atual.marketing;
+    if (typeof configCookies.showModal === 'function') configCookies.showModal();
+    else configCookies.setAttribute('open', '');
+  }
+
+  document.addEventListener('click', function (e) {
+    var alvo = e.target.closest('[data-cookies], [data-cookies-abrir]');
+    if (!alvo) return;
+    var acao = alvo.hasAttribute('data-cookies-abrir') ? 'configurar' : alvo.getAttribute('data-cookies');
+    if (acao === 'aceitar') salvarConsentimento(true, true);
+    else if (acao === 'recusar') salvarConsentimento(false, false);
+    else if (acao === 'configurar') abrirConfigCookies();
+    else if (acao === 'salvar') {
+      salvarConsentimento(
+        configCookies.querySelector('[name="medicao"]').checked,
+        configCookies.querySelector('[name="marketing"]').checked
+      );
+    }
+  });
+
+  // Sem escolha válida (primeira visita, expirou ou versão antiga): mostra o aviso.
+  var consentimentoAtual = window.gmConsentimento;
+  if (avisoCookies && (!consentimentoAtual || consentimentoAtual.v !== VERSAO_CONSENTIMENTO)) {
+    avisoCookies.hidden = false;
+  }
+
   /* -------------------------------------------------------------- init -- */
 
-  carregarMetricas();
+  if (contadores.length) carregarMetricas(); // só nas páginas que exibem números (a home)
 })();

@@ -18,7 +18,7 @@ declare(strict_types=1);
     </div> -->
     <div>
       <h3>Institucional</h3>
-      <ul><li><a href="<?= $secao('sobre') ?>">Sobre nós</a></li><li><a href="<?= $secao('duvidas') ?>">Dúvidas frequentes</a></li><li><a href="<?= $raiz ?>politica-de-privacidade/">Política de privacidade</a></li></ul>
+      <ul><li><a href="<?= $secao('sobre') ?>">Sobre nós</a></li><li><a href="<?= $secao('duvidas') ?>">Dúvidas frequentes</a></li><li><a href="<?= $raiz ?>politica-de-privacidade/">Política de privacidade</a></li><li><button class="rodape__link" type="button" data-cookies-abrir>Preferências de cookies</button></li></ul>
     </div>
     <div>
       <h3>Contato</h3>
@@ -49,6 +49,53 @@ declare(strict_types=1);
   </div>
   <p class="rodape__legal">20.200.080/0001-36 — LINK SERVIÇOS DE INFORMAÇÕES CADASTRAIS LTDA · Copyright <?php echo(date("Y")) ?> Grupo Meirelles</p>
 </footer>
+
+<!-- Aviso de cookies (LGPD). Aparece até a pessoa escolher; a escolha vale por
+     12 meses (cookie gm_consentimento). Lógica no main.js, padrão no <head>. -->
+<section class="cookies" id="avisoCookies" aria-label="Aviso de cookies" hidden>
+  <p class="cookies__texto">Usamos cookies necessários para o site funcionar. Com a sua permissão, também usaremos cookies de medição e de marketing para entender o uso do site e melhorar nossos anúncios. Você pode mudar a escolha quando quiser. Saiba mais na <a href="<?= $raiz ?>politica-de-privacidade/#cookies">política de privacidade</a>.</p>
+  <div class="cookies__acoes">
+    <button class="btn btn--vazado" type="button" data-cookies="configurar">Configurar</button>
+    <button class="btn btn--vazado" type="button" data-cookies="recusar">Recusar opcionais</button>
+    <button class="btn btn--primario" type="button" data-cookies="aceitar">Aceitar todos</button>
+  </div>
+</section>
+
+<dialog class="cookies-config" id="cookiesConfig" aria-labelledby="cookiesConfigTitulo">
+  <form method="dialog">
+    <button class="cookies-config__fechar" type="submit" value="fechar" aria-label="Fechar sem salvar">×</button>
+    <h2 id="cookiesConfigTitulo">Preferências de cookies</h2>
+    <p>Escolha quais categorias você permite. Os cookies necessários não podem ser desligados, porque sem eles o site não funciona.</p>
+
+    <div class="cookies-config__item">
+      <div>
+        <h3>Necessários</h3>
+        <p>Guardam a sua escolha sobre cookies e mantêm o site e o formulário funcionando com segurança.</p>
+      </div>
+      <input class="cookies-config__chave" type="checkbox" checked disabled aria-label="Cookies necessários (sempre ativos)">
+    </div>
+    <div class="cookies-config__item">
+      <div>
+        <h3><label for="cookieMedicao">Medição</label></h3>
+        <p>Contam visitas e mostram como o site é usado (ex.: Google Analytics), sem identificar você diretamente.</p>
+      </div>
+      <input class="cookies-config__chave" type="checkbox" id="cookieMedicao" name="medicao">
+    </div>
+    <div class="cookies-config__item">
+      <div>
+        <h3><label for="cookieMarketing">Marketing</label></h3>
+        <p>Medem o resultado dos anúncios e permitem mostrar ofertas mais relevantes (ex.: Google Ads, Meta).</p>
+      </div>
+      <input class="cookies-config__chave" type="checkbox" id="cookieMarketing" name="marketing">
+    </div>
+
+    <div class="cookies__acoes">
+      <button class="btn btn--vazado" type="button" data-cookies="recusar">Recusar opcionais</button>
+      <button class="btn btn--vazado" type="button" data-cookies="salvar">Salvar escolhas</button>
+      <button class="btn btn--primario" type="button" data-cookies="aceitar">Aceitar todos</button>
+    </div>
+  </form>
+</dialog>
 
 <?php if ($home): ?>
 <a class="cta-fixa" href="#simulador">Simular agora</a>

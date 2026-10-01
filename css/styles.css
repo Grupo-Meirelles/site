@@ -559,6 +559,67 @@ a:hover { color: var(--acento-600); text-decoration: underline; }
 
 @media (min-width: 900px) { .rodape__grade { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; } }
 
+/* Botão com cara de link (ex.: "Preferências de cookies" no rodapé). */
+.rodape__link { background: none; border: 0; padding: 0; font: inherit; color: var(--texto-3); cursor: pointer; text-align: left; }
+.rodape__link:hover { color: var(--acento); }
+
+/* ------------------------------------------------------- cookies -------- */
+/* Aviso fixo embaixo, acima da CTA fixa e do topo. Recusar e aceitar têm o
+   mesmo peso visual (guia de cookies da ANPD). */
+.cookies {
+  position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 60;
+  max-width: 980px; margin: 0 auto; padding: 18px 20px;
+  display: grid; gap: 14px;
+  background: var(--superficie); color: var(--texto-2); font-size: 13px; line-height: 1.55;
+  border: 1px solid var(--linha); border-radius: var(--r-lg);
+  box-shadow: 0 16px 40px rgba(13, 15, 25, .22);
+}
+.cookies[hidden] { display: none; }
+.cookies__texto a { color: var(--acento); text-decoration: underline; }
+.cookies__acoes { display: flex; flex-wrap: wrap; gap: 8px; }
+.cookies__acoes .btn { flex: 1 1 140px; min-height: 44px; font-size: 14px; }
+@media (min-width: 900px) {
+  .cookies { grid-template-columns: 1fr auto; align-items: center; gap: 24px; }
+  .cookies__acoes .btn { flex: 0 0 auto; }
+}
+
+.cookies-config {
+  width: min(560px, calc(100% - 24px)); max-height: calc(100% - 24px); overflow: auto;
+  padding: 28px 24px 24px; border: 0; border-radius: var(--r-lg);
+  background: var(--superficie); color: var(--texto-2); font-size: 14px; line-height: 1.55;
+  box-shadow: 0 24px 60px rgba(13, 15, 25, .35);
+}
+.cookies-config::backdrop { background: rgba(13, 15, 25, .55); }
+.cookies-config form { position: relative; display: grid; gap: 14px; }
+.cookies-config h2 { font-size: 22px; padding-right: 36px; }
+.cookies-config__fechar {
+  position: absolute; top: -12px; right: -8px; width: 40px; height: 40px;
+  background: none; border: 0; border-radius: 50%; font-size: 26px; line-height: 1; color: var(--texto-3); cursor: pointer;
+}
+.cookies-config__fechar:hover { background: var(--superficie-2); color: var(--texto); }
+.cookies-config__item {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+  padding: 14px 0; border-top: 1px solid var(--linha);
+}
+.cookies-config__item h3 { font: 600 14px Inter, sans-serif; color: var(--texto); margin-bottom: 2px; }
+.cookies-config__item p { font-size: 13px; }
+.cookies-config .cookies__acoes { margin-top: 6px; }
+
+/* Chave liga/desliga a partir de um checkbox nativo (continua acessível). */
+.cookies-config__chave {
+  appearance: none; flex: 0 0 auto; position: relative; width: 44px; height: 24px; margin-top: 2px;
+  border-radius: 999px; background: var(--linha); cursor: pointer; transition: background-color .15s ease;
+}
+.cookies-config__chave::after {
+  content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .25); transition: transform .15s ease;
+}
+.cookies-config__chave:checked { background: var(--acento); }
+.cookies-config__chave:checked::after { transform: translateX(20px); }
+.cookies-config__chave:disabled { opacity: .55; cursor: not-allowed; }
+.cookies-config__chave:focus-visible { outline: 2px solid var(--acento); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .cookies-config__chave, .cookies-config__chave::after { transition: none; } }
+
 /* ------------------------------------------------------ cta fixa -------- */
 .cta-fixa {
   position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 40;

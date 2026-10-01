@@ -220,6 +220,35 @@ Use SMTP de uma conta do próprio domínio (ex.: `site@grupomeirelles.com.br`): 
 de cada envio já vão no e-mail e no CRM, mas o texto de consentimento precisa ser
 definido com o jurídico.
 
+### Cookies (LGPD) e tags de medição/marketing
+
+Na primeira visita aparece um aviso com **Aceitar todos**, **Recusar opcionais** e
+**Configurar** (categorias: necessários, medição e marketing). A escolha fica 12 meses no
+cookie `gm_consentimento` e pode ser mudada em **Preferências de cookies**, no rodapé.
+
+**Onde colocar as tags:** só no `.env`, sem colar script no HTML:
+
+| Variável | Ferramenta | Carrega quando |
+|---|---|---|
+| `GTM_ID` | Google Tag Manager | aceitou medição **ou** marketing |
+| `GA4_ID` | Google Analytics 4 | aceitou medição |
+| `META_PIXEL_ID` | Meta Pixel | aceitou marketing |
+| `GOOGLE_SITE_VERIFICATION` | Search Console (meta tag) | sempre — não usa cookies |
+
+Antes do aceite **nenhuma** dessas tags é baixada. O carregador fica no `<head>`
+(`inc/topo.php`) e já envia o Consent Mode v2 do Google (tudo `denied` até a escolha).
+
+- **Use o GTM ou a tag direta, não os dois** para a mesma ferramenta (ex.: GA4 no GTM e
+  `GA4_ID` preenchido conta as visitas em dobro).
+- **Tags novas dentro do GTM:** configure em cada tag a exigência de consentimento
+  (`analytics_storage` para medição, `ad_storage` para anúncios). O evento
+  `consentimento_atualizado` vai para o `dataLayer` a cada escolha.
+- **Outra ferramenta fora do GTM:** carregue-a dentro de `gmAplicarConsentimento()` em
+  `inc/topo.php`, seguindo o modelo das que já existem.
+- **Mudou as categorias?** Suba `VERSAO_CONSENTIMENTO` em `js/main.js` para pedir a escolha
+  de novo a todos.
+- Ao ligar qualquer tag, atualize a seção 5 da política de privacidade.
+
 ---
 
 ## Pontos de atenção

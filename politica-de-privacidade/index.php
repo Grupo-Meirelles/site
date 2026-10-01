@@ -90,18 +90,34 @@ require __DIR__ . '/../inc/topo.php';
     <p>Não utilizamos seus dados pessoais para finalidades incompatíveis com aquelas informadas nesta Política.</p>
 
     <h2 id="compartilhamento">4. Com quem compartilhamos</h2>
-    <ul>
+    <!-- <ul>
       <li><strong>Instituições financeiras e parceiros comerciais envolvidos na operação,</strong>, quando você decidir prosseguir com uma proposta e o compartilhamento for necessário para análise, apresentação de alternativas, formalização ou conclusão da solução financeira solicitada. Após o recebimento dos dados, essas instituições e parceiros poderão realizar o tratamento das informações sob sua própria responsabilidade, de acordo com suas obrigações legais, regulatórias e respectivas políticas de privacidade.</li>
       <li><strong>Fornecedores de tecnologia e serviços utilizados pela empresa</strong>, como serviços de hospedagem, envio de e-mails, sistemas de gestão de clientes (CRM) e outras ferramentas necessárias à operação do site e ao atendimento. Esses fornecedores poderão tratar dados pessoais em nome da empresa e de acordo com as finalidades contratadas.</li>
       <li><strong>Google Fonts</strong>, que fornece as fontes do site: ao carregar a página, o seu navegador se conecta aos servidores do Google, que recebem o seu endereço IP.</li>
       <li><strong>Reclame Aqui</strong>, que exibe o selo de reputação no rodapé: o selo é carregado dos servidores do Reclame Aqui (hospedados na Amazon Web Services), que recebem o seu endereço IP e dados do navegador.</li>
       <li><strong>Autoridades públicas</strong>, quando houver obrigação legal ou ordem judicial.</li>
-    </ul>
+    </ul> -->
+
+    <p>Seus dados pessoais poderão ser compartilhados, quando necessário e de acordo com as finalidades previstas nesta Política, com:</p>
+
+    <p>Instituições financeiras e parceiros comerciais envolvidos na operação, quando você decidir prosseguir com uma proposta e o compartilhamento for necessário para análise, apresentação de alternativas, formalização ou conclusão da solução financeira solicitada. Essas instituições e parceiros poderão realizar o tratamento dos dados sob sua própria responsabilidade, de acordo com suas obrigações legais e regulatórias e respectivas políticas de privacidade.</p>
+
+    <p>Fornecedores de tecnologia e serviços, incluindo serviços de hospedagem, sistemas de gestão de clientes (CRM), comunicação, segurança, análise de desempenho, mensuração e publicidade, na medida necessária à operação do site, ao atendimento e às demais finalidades descritas nesta Política.</p>
+
+    <p>Autoridades públicas e órgãos competentes, quando o compartilhamento for necessário para cumprimento de obrigação legal ou regulatória, determinação de autoridade competente ou ordem judicial.</p>
+
+    <p>Alguns fornecedores e parceiros poderão realizar o tratamento ou armazenamento de dados pessoais fora do Brasil. Nesses casos, as transferências internacionais serão realizadas em conformidade com a LGPD e com a regulamentação da Autoridade Nacional de Proteção de Dados (ANPD), mediante a adoção dos mecanismos e das medidas de proteção aplicáveis.</p>
+
     <p>Alguns desses fornecedores podem armazenar dados fora do Brasil. Nesses casos, a transferência segue as regras dos arts. 33 a 36 da LGPD.</p>
 
     <h2 id="cookies">5. Cookies e ferramentas de medição</h2>
-    <p>Hoje este site não grava cookies próprios, nem de publicidade ou de medição, e não guarda informações no seu navegador.</p>
-    <p>Se passarmos a usar ferramentas de medição ou de anúncios (como Google Analytics, Google Ads ou Meta Pixel), esta política será atualizada antes e, quando a lei exigir, pediremos o seu consentimento.</p>
+    <p>Este site utiliza cookies e tecnologias semelhantes para viabilizar seu funcionamento, compreender a forma como os usuários interagem com as páginas, mensurar o desempenho do site e avaliar a efetividade de campanhas e canais de divulgação.</p>
+
+    <p>Essas tecnologias podem coletar informações relacionadas à navegação, como endereço IP, tipo de dispositivo e navegador, páginas acessadas, data e horário do acesso, origem da navegação e interações realizadas no site.</p>
+
+    <p>Os cookies estritamente necessários ao funcionamento e à segurança do site poderão ser utilizados independentemente de consentimento, quando amparados pela legislação aplicável. Os cookies e tecnologias utilizados para análise, medição e publicidade observarão as escolhas realizadas pelo usuário.</p>
+
+    <p>Por meio do painel de preferências disponibilizado no site, o usuário poderá aceitar, rejeitar ou gerenciar a utilização de cookies não essenciais, bem como alterar suas escolhas posteriormente.</p>
 
     <h2 id="guarda">6. Por quanto tempo guardamos e como protegemos</h2>
     <p>Os pedidos de simulação e os dados relacionados ao atendimento serão mantidos pelo período necessário ao acompanhamento da solicitação e, após o último contato, pelo prazo de <strong>5 anos</strong>, ressalvadas as hipóteses em que sua conservação seja necessária para cumprimento de obrigação legal ou regulatória ou exercício regular de direitos.</p>
