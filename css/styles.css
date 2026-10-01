@@ -90,6 +90,7 @@ a:hover { color: var(--acento-600); text-decoration: underline; }
   min-height: 48px; padding: 0 22px; border: 1px solid transparent; border-radius: var(--r-md);
   font: 500 15px Inter, sans-serif; cursor: pointer; text-decoration: none;
   transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+  margin-top: 4px;
 }
 .btn:hover { text-decoration: none; }
 .btn--primario { background: var(--acento); color: #fff; }
