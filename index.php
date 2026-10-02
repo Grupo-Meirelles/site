@@ -85,7 +85,7 @@ require __DIR__ . '/inc/topo.php';
           <input type="text" id="empresa" name="empresa" tabindex="-1" autocomplete="off">
         </div>
 
-        <button class="btn btn--escuro btn--bloco" type="submit" id="enviar">Quero minha simulação</button>
+        <button class="btn btn--escuro btn--bloco" type="submit" id="btn_simulacao">Quero minha simulação</button>
         <p class="simulador__miudas">Simular é gratuito e não consultamos seu SPC.</p>
         <p class="simulador__estado" id="estadoForm" role="status" aria-live="polite" hidden></p>
       </form>
