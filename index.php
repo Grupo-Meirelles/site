@@ -32,22 +32,6 @@ require __DIR__ . '/inc/topo.php';
       <h1>O <span class="hero__destaque">Grupo Meirelles</span><br>
       tem o Consignado<br>
       certo para você.</h1>
-      <!-- <p class="hero__sub">Arraste o valor, deixe seu telefone e um especialista compara as propostas de todos os bancos parceiros com as condições reais do seu convênio.</p> -->
-
-      <!-- <dl class="metricas metricas--hero" data-metricas>
-        <div class="metrica">
-          <dt class="metrica__valor" data-contador data-formato="anos" data-chave="anos_empresa" data-valor="15">+15 anos</dt>
-          <dd class="metrica__rotulo">de empresa</dd>
-        </div>
-        <div class="metrica">
-          <dt class="metrica__valor" data-contador data-formato="compacto" data-chave="clientes_atendidos" data-valor="100000">100 mil</dt>
-          <dd class="metrica__rotulo">clientes atendidos</dd>
-        </div>
-        <div class="metrica">
-          <dt class="metrica__valor" data-contador data-formato="milhoes" data-chave="valor_liberado" data-valor="500000000">R$ 500 mi</dt>
-          <dd class="metrica__rotulo">em valor liberado</dd>
-        </div>
-      </dl> -->
     </div>
 
     <div class="hero__form">
@@ -59,11 +43,6 @@ require __DIR__ . '/inc/topo.php';
                min="2000" max="80000" step="1000" value="25000"
                aria-label="Valor desejado" aria-describedby="valorSaida">
         <div class="simulador__limites"><span>R$ 2 mil</span><span>R$ 80 mil</span></div>
-
-        <!-- <p class="simulador__parcela">
-          <span id="prazoSaida">72</span>x de <strong id="parcelaSaida">R$ 610</strong>
-          <small>Simulação. A taxa final varia por convênio.</small>
-        </p> -->
 
         <div class="campo">
           <label class="campo__label" for="nome">Nome completo</label>
