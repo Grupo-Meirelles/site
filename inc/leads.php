@@ -265,15 +265,25 @@ function enviarLeadCrm(array $lead): bool
     $url = env('CRM_URL');
     if (!$url) return false;
 
-    $cabecalhos = ['Content-Type: application/json', 'Accept: application/json'];
-    if ($token = env('CRM_TOKEN')) $cabecalhos[] = 'Authorization: Bearer ' . $token;
+    postJson($url, payloadCrm($lead), env('CRM_TOKEN'), (float) env('CRM_TIMEOUT', '8'), 'CRM');
+    return true;
+}
 
-    $corpo = json_encode(payloadCrm($lead), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+/**
+ * POST JSON em $url ("Authorization: Bearer <token>" se houver token).
+ * Lança RuntimeException se não houver resposta ou se ela não for 2xx;
+ * $nome identifica o destino na mensagem de erro.
+ */
+function postJson(string $url, array $dados, ?string $token, float $timeout, string $nome): void
+{
+    $cabecalhos = ['Content-Type: application/json', 'Accept: application/json'];
+    if ($token) $cabecalhos[] = 'Authorization: Bearer ' . $token;
+
     $contexto = stream_context_create(['http' => [
         'method' => 'POST',
         'header' => implode("\r\n", $cabecalhos),
-        'content' => $corpo,
-        'timeout' => (float) env('CRM_TIMEOUT', '8'),
+        'content' => json_encode($dados, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
+        'timeout' => $timeout,
         'ignore_errors' => true,
     ]]);
 
@@ -283,10 +293,9 @@ function enviarLeadCrm(array $lead): bool
         if (preg_match('#^HTTP/\S+\s+(\d{3})#', $linha, $m)) $status = (int) $m[1];
     }
     if ($status === 0) {
-        throw new RuntimeException("CRM sem resposta em {$url}");
+        throw new RuntimeException("{$nome} sem resposta em {$url}");
     }
     if ($status < 200 || $status >= 300) {
-        throw new RuntimeException("CRM respondeu HTTP {$status}: " . mb_substr((string) $resposta, 0, 300));
+        throw new RuntimeException("{$nome} respondeu HTTP {$status}: " . mb_substr((string) $resposta, 0, 300));
     }
-    return true;
 }

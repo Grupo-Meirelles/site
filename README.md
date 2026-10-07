@@ -7,17 +7,20 @@ Precisa de PHP 8.1+ no servidor (avaliações e envio do formulário). Configura
 site/
 ├── index.php
 ├── politica-de-privacidade/index.php   página /politica-de-privacidade
+├── consignado-clt/index.php       página /consignado-clt (css/emprestimo-clt.css + js/emprestimo-clt.js)
 ├── api/leads.php                  recebe o formulário: banco + API (CRM) + e-mail
+├── api/leads-clt.php              recebe o formulário da página consignado-clt: banco + API
 ├── inc/
 │   ├── avaliacoes.php             lê data/avaliacoes/ e monta os cartões
 │   ├── duvidas.php                lê data/duvidas/ e monta as dúvidas frequentes
 │   ├── topo.php / rodape.php      <head>, menu e rodapé compartilhados pelas páginas
 │   ├── leads.php                  validação, e-mail (SMTP/mail()) e envio ao CRM
+│   ├── leads-clt.php              validação (com CPF) e envio à API do formulário CLT
 │   ├── db.php                     conexão MySQL e gravação dos leads
 │   └── env.php                    lê o .env
 ├── .env.example                   modelo de configuração (copie para .env)
 ├── .htaccess                      bloqueia .env, inc/ e db/ no Apache
-├── db/schema.sql                  tabela `leads` (rodar uma vez)
+├── db/schema.sql                  tabelas `leads` e `leads_clt` (rodar uma vez)
 ├── css/styles.css
 ├── js/main.js
 ├── img/
@@ -219,6 +222,44 @@ Use SMTP de uma conta do próprio domínio (ex.: `site@grupomeirelles.com.br`): 
 **Ainda falta:** o formulário não tem checkbox de consentimento LGPD. Data/hora e IP
 de cada envio já vão no e-mail e no CRM, mas o texto de consentimento precisa ser
 definido com o jurídico.
+
+### `POST api/leads-clt.php`
+
+Enviado pelo formulário da página `consignado-clt/`. Implementado em
+`api/leads-clt.php` + `inc/leads-clt.php`; reaproveita o limite por IP, a extração de
+UTMs e o POST JSON de `inc/leads.php`.
+
+```json
+{
+  "nome": "Maria Silva",
+  "cpf": "52998224725",
+  "telefone": "61981171464",
+  "aceite": true,
+  "origem": "/consignado-clt/?utm_source=google",
+  "empresa": ""
+}
+```
+
+**O que o servidor faz, em ordem:**
+
+1. Valida (nome com 2+ palavras, CPF com dígitos verificadores, celular com DDD e 9,
+   `aceite` = `true`) e aplica o mesmo limite de 10 envios por IP a cada 10 minutos.
+2. **Banco**: grava na tabela `leads_clt` (mesmo banco, `DB_*`), com CPF e telefone só
+   com dígitos e `api_status = 'pendente'`. Crie a tabela rodando `db/schema.sql`
+   (usa `CREATE TABLE IF NOT EXISTS`, então pode rodar de novo sem mexer em `leads`).
+3. **API**: `POST` JSON em `CLT_API_URL` (com `Authorization: Bearer CLT_API_TOKEN`, se
+   houver; timeout `CLT_API_TIMEOUT`). O resultado vai para `api_status`/`api_erro` da
+   linha, como na tabela `leads`. Formato enviado — ajuste em `payloadClt()`:
+
+   ```json
+   { "nome": "Maria Silva", "cpf": "52998224725", "telefone": "61981171464" }
+   ```
+
+Sem e-mail de propósito: o lead tem CPF, que não deve circular por e-mail.
+Respostas iguais às de `api/leads.php` (`200` se o banco ou a API recebeu; `422` com
+`campos`: `nome`, `cpf`, `telefone`, `aceite`; `429`; `502`). Falhas vão para o log do
+PHP com o prefixo `[leads-clt]`. No sucesso o front dispara
+`dataLayer.push({event: 'lead_consignado_clt'})`.
 
 ### Cookies (LGPD) e tags de medição/marketing
 

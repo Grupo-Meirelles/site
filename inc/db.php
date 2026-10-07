@@ -61,14 +61,39 @@ function salvarLead(PDO $pdo, array $lead): int
     return (int) $pdo->lastInsertId();
 }
 
+/** Grava o lead da página consignado-clt/ (tabela leads_clt) e devolve o id. */
+function salvarLeadClt(PDO $pdo, array $lead): int
+{
+    $sql = 'INSERT INTO leads_clt
+              (nome, cpf, telefone, origem, utm, ip, navegador, recebido_em, api_status)
+            VALUES
+              (:nome, :cpf, :telefone, :origem, :utm, :ip, :navegador, :recebido_em, :api_status)';
+    $pdo->prepare($sql)->execute([
+        'nome' => $lead['nome'],
+        'cpf' => $lead['cpf'],
+        'telefone' => $lead['telefone'],
+        'origem' => $lead['origem'],
+        'utm' => json_encode((object) $lead['utm'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
+        'ip' => $lead['ip'],
+        'navegador' => $lead['navegador'],
+        'recebido_em' => date('Y-m-d H:i:s', strtotime($lead['recebido_em'])),
+        'api_status' => 'pendente',
+    ]);
+    return (int) $pdo->lastInsertId();
+}
+
 /**
  * Registra o resultado da chamada à API na linha do lead.
- * $status: "enviado" ou "falhou". Com CRM_URL vazio a chamada não acontece e
- * a linha fica "pendente" — pronta para ser enviada quando a API for ligada.
+ * $status: "enviado" ou "falhou". Com a URL da API vazia a chamada não
+ * acontece e a linha fica "pendente" — pronta para ser enviada quando a API
+ * for ligada. $tabela: "leads" (home) ou "leads_clt" (consignado-clt/).
  */
-function registrarEnvioApi(PDO $pdo, int $id, string $status, ?string $erro = null): void
+function registrarEnvioApi(PDO $pdo, int $id, string $status, ?string $erro = null, string $tabela = 'leads'): void
 {
-    $sql = 'UPDATE leads
+    if (!in_array($tabela, ['leads', 'leads_clt'], true)) {
+        throw new InvalidArgumentException("tabela de leads desconhecida: {$tabela}");
+    }
+    $sql = 'UPDATE ' . $tabela . '
                SET api_status = :status,
                    api_erro = :erro,
                    api_tentativas = api_tentativas + 1,

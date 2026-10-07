@@ -112,7 +112,7 @@ require __DIR__ . '/inc/topo.php';
 
 <section class="secao" id="produtos">
   <div class="secao__cabecalho">
-    <h2>Cinco caminhos para pagar menos juros.</h2>
+    <h2>Seis caminhos para pagar menos juros.</h2>
     <a class="link-seta" href="#como-funciona">Ver como funciona</a>
   </div>
 
@@ -142,6 +142,11 @@ require __DIR__ . '/inc/topo.php';
       <h3>Refinanciamento</h3>
       <p>Já pagou parte? Libere troco na conta mantendo a parcela que cabe.</p>
       <a class="link-seta" href="#simulador">Simular</a>
+    </li>
+    <li class="produto">
+      <h3>Consignado CLT</h3>
+      <p>Para quem tem carteira assinada, com parcelas descontadas direto do salário.</p>
+      <a class="link-seta" href="consignado-clt/">Saiba mais</a>
     </li>
   </ul>
 </section>
