@@ -279,7 +279,7 @@ window.addEventListener('scroll', () => {
         .then(function () {
           form.reset();
           atualizarSimulacao();
-          mostrarEstado('Recebemos seus dados. Um especialista entra em contato pelo WhatsApp.', 'ok');
+          mostrarEstado('Recebemos seus dados. Um especialista entrará em contato pelo WhatsApp.', 'ok');
           // Evento para o pixel / GA4 — o time de tráfego usa isto como conversão.
           window.dataLayer = window.dataLayer || [];
           window.dataLayer.push({ event: 'lead_simulacao', valor: payload.valor });
