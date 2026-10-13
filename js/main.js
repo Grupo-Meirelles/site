@@ -203,7 +203,7 @@ window.addEventListener('scroll', () => {
   var campoNome = document.getElementById('nome');
   var campoTel = document.getElementById('telefone');
   var estado = document.getElementById('estadoForm');
-  var botao = document.getElementById('enviar');
+  var botao = document.getElementById('btn_simulacao');
 
   function mascaraTelefone(valor) {
     var d = valor.replace(/\D/g, '').slice(0, 11);
