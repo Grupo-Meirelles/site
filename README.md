@@ -176,23 +176,25 @@ descartado em silêncio.
    prazo, página/UTMs, data/hora, IP e navegador. Usa SMTP se `SMTP_HOST` estiver
    preenchido; senão, o `mail()` da hospedagem.
 
-**Chamada à API (passo 3):** `POST` JSON em `CRM_URL` (com `Authorization: Bearer CRM_TOKEN`, se
-   houver). Com `CRM_URL` vazio a etapa é pulada. O formato enviado fica em
-   `payloadCrm()` em `inc/leads.php` — é o único lugar a mexer para adaptar a um CRM
-   específico:
+**Chamada à API (passo 3):** `POST` JSON no webhook de leads do CRM
+   (`https://<domínio-da-api>/api/webhooks/site-leads`), configurado no `.env`:
+
+   | Variável | Uso |
+   |---|---|
+   | `SITE_LEADS_API_URL` | URL do webhook. Vazia = etapa pulada |
+   | `SITE_LEADS_API_KEY` | enviada no cabeçalho `X-API-KEY` (obrigatória com a URL preenchida; sem ela o envio é registrado como `falhou`) |
+   | `SITE_LEADS_API_TIMEOUT` | segundos de espera (padrão 8) |
+
+   Cabeçalhos: `X-API-KEY`, `Content-Type: application/json`, `Accept: application/json`.
+   O formato enviado fica em `payloadCrm()` em `inc/leads.php`:
 
    ```json
-   {
-     "nome": "Maria Silva",
-     "telefone": "5561981171464",
-     "valor": 25000,
-     "prazo": 72,
-     "origem": "/?utm_source=google",
-     "utm": { "utm_source": "google" },
-     "recebido_em": "2026-09-28T15:02:10-03:00",
-     "ip": "200.100.50.25"
-   }
+   { "name": "Maria da Silva", "phone": "(11) 98765-4321", "value": 25000 }
    ```
+
+   `phone` vai formatado com DDD; `value` é o valor escolhido no simulador, em reais
+   (número; o simulador só gera valores inteiros).
+   Qualquer resposta `2xx` conta como enviado.
 
 **Respostas:**
 

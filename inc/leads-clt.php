@@ -88,6 +88,7 @@ function enviarLeadClt(array $lead): bool
     $url = env('CLT_API_URL');
     if (!$url) return false;
 
-    postJson($url, payloadClt($lead), env('CLT_API_TOKEN'), (float) env('CLT_API_TIMEOUT', '8'), 'API CLT');
+    $token = env('CLT_API_TOKEN');
+    postJson($url, payloadClt($lead), $token ? ['Authorization: Bearer ' . $token] : [], (float) env('CLT_API_TIMEOUT', '8'), 'API CLT');
     return true;
 }

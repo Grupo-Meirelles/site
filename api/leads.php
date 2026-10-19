@@ -3,7 +3,8 @@
  * POST api/leads.php — recebe o lead do formulário do hero.
  *
  * 1. salva os dados no banco (DB_* no .env; pulado se DB_NOME vazio)
- * 2. envia os dados à API (CRM_URL / CRM_TOKEN no .env; pulado se vazio) e
+ * 2. envia os dados ao CRM (SITE_LEADS_API_URL / SITE_LEADS_API_KEY no .env;
+ *    pulado se a URL estiver vazia) e
  *    registra o resultado na linha do lead
  * 3. envia os dados por e-mail (LEADS_EMAIL_*, SMTP_* no .env)
  *

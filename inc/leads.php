@@ -241,43 +241,44 @@ function smtpEnviar(string $de, array $para, string $mensagem): void
 
 /* ------------------------------------------------------------------ CRM -- */
 
-/** Formato enviado ao CRM. Ajuste aqui quando o CRM exigir outros nomes de campo. */
+/**
+ * Formato do webhook de leads do CRM (POST /api/webhooks/site-leads):
+ * { "name": "Maria da Silva", "phone": "(11) 98765-4321", "value": 1500.50 }
+ */
 function payloadCrm(array $lead): array
 {
     return [
-        'nome' => $lead['nome'],
-        'telefone' => '55' . $lead['telefone'],
-        'valor' => $lead['valor'],
-        'prazo' => $lead['prazo'],
-        'origem' => $lead['origem'],
-        'utm' => (object) $lead['utm'],
-        'recebido_em' => $lead['recebido_em'],
-        'ip' => $lead['ip'],
+        'name' => $lead['nome'],
+        'phone' => telefoneFormatado($lead['telefone']),
+        'value' => (float) $lead['valor'],
     ];
 }
 
 /**
- * Envia o lead ao CRM (POST JSON em CRM_URL). Não faz nada se CRM_URL estiver
- * vazio — devolve false. Lança RuntimeException em caso de falha.
+ * Envia o lead ao CRM (POST JSON em SITE_LEADS_API_URL, com a chave em
+ * X-API-KEY). Não faz nada se SITE_LEADS_API_URL estiver vazio — devolve
+ * false. Lança RuntimeException em caso de falha.
  */
 function enviarLeadCrm(array $lead): bool
 {
-    $url = env('CRM_URL');
+    $url = env('SITE_LEADS_API_URL');
     if (!$url) return false;
 
-    postJson($url, payloadCrm($lead), env('CRM_TOKEN'), (float) env('CRM_TIMEOUT', '8'), 'CRM');
+    $chave = env('SITE_LEADS_API_KEY');
+    if (!$chave) throw new RuntimeException('SITE_LEADS_API_KEY não configurada');
+
+    postJson($url, payloadCrm($lead), ['X-API-KEY: ' . $chave], (float) env('SITE_LEADS_API_TIMEOUT', '8'), 'CRM');
     return true;
 }
 
 /**
- * POST JSON em $url ("Authorization: Bearer <token>" se houver token).
- * Lança RuntimeException se não houver resposta ou se ela não for 2xx;
- * $nome identifica o destino na mensagem de erro.
+ * POST JSON em $url, com Content-Type/Accept JSON mais os $cabecalhosExtras
+ * (ex.: autenticação). Lança RuntimeException se não houver resposta ou se ela
+ * não for 2xx; $nome identifica o destino na mensagem de erro.
  */
-function postJson(string $url, array $dados, ?string $token, float $timeout, string $nome): void
+function postJson(string $url, array $dados, array $cabecalhosExtras, float $timeout, string $nome): void
 {
-    $cabecalhos = ['Content-Type: application/json', 'Accept: application/json'];
-    if ($token) $cabecalhos[] = 'Authorization: Bearer ' . $token;
+    $cabecalhos = array_merge(['Content-Type: application/json', 'Accept: application/json'], $cabecalhosExtras);
 
     $contexto = stream_context_create(['http' => [
         'method' => 'POST',

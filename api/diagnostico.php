@@ -79,6 +79,9 @@ try {
 
 // 5. Outros destinos do lead (para saber o que mais deveria estar recebendo)
 echo "\n";
-linha((bool) env('CRM_URL'), 'CRM_URL ' . (env('CRM_URL') ? 'preenchida' : 'vazia — chamada à API desligada'));
+linha((bool) env('SITE_LEADS_API_URL'), 'SITE_LEADS_API_URL ' . (env('SITE_LEADS_API_URL') ? 'preenchida' : 'vazia — envio ao CRM desligado'));
+if (env('SITE_LEADS_API_URL')) {
+    linha((bool) env('SITE_LEADS_API_KEY'), 'SITE_LEADS_API_KEY ' . (env('SITE_LEADS_API_KEY') ? 'preenchida' : 'vazia — o envio ao CRM vai falhar'));
+}
 linha((bool) env('LEADS_EMAIL_PARA'), 'LEADS_EMAIL_PARA ' . (env('LEADS_EMAIL_PARA') ?: 'vazio — e-mail desligado'));
 echo "\nApague este arquivo do servidor quando terminar.\n";
